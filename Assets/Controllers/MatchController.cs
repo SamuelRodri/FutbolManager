@@ -1,4 +1,5 @@
 using FutbolManager.Models;
+using FutbolManager.Views;
 using UnityEngine;
 
 namespace FutbolManager.Controllers
@@ -6,6 +7,7 @@ namespace FutbolManager.Controllers
     public class MatchController : MonoBehaviour
     {
         private MatchModel _matchModel;
+        [SerializeField] private MatchView _matchView;
 
         private void Start()
         {
@@ -28,7 +30,12 @@ namespace FutbolManager.Controllers
                 _matchModel.SetScore(Random.Range(0, 5), Random.Range(0, 5));
                 _matchModel.FinishMatch();
 
-                Debug.Log($"Match Finished: {_matchModel.HomeTeam.Name} {_matchModel.HomeScore} - {_matchModel.AwayScore} {_matchModel.AwayTeam.Name}");
+                _matchView.UpdateView(
+                    _matchModel.HomeTeam.Name,
+                    _matchModel.AwayTeam.Name,
+                    _matchModel.HomeScore,
+                    _matchModel.AwayScore
+                );
             }
             else
             {
